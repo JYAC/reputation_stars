@@ -1,0 +1,86 @@
+---
+title: "Star Rating Generation"
+author: "Julie Cachia"
+date: "07/26/2021"
+output:
+  html_document:
+    highlight: pygments
+    theme: flatly
+    toc: yes
+    toc_float:
+      collapsed: no
+  pdf_document:
+    toc: yes
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
+```
+
+# Load libraries
+
+```{r}
+library(tidyverse)
+#install.packages("magick")
+library(magick)
+```
+# Load data
+
+```{r}
+trials <- read_csv("./faces.csv")
+```
+
+# Modify data
+
+```{r}
+# add complementary values column for rest of pie chart 
+trials <- trials %>% 
+  dplyr::mutate(restOfChart = 100 - `exact value`)
+
+# take out .jpeg from image column
+trials$image <- substr(trials$image,1,nchar(trials$image)-4)
+```
+
+# Generate bar plots
+
+```{r}
+p <- ggplot(trials, aes(x = `exact value`, y = half))+
+  geom_col(width = 0.7)
+p
+
+
+
+barplot(trials$`exact value`[1],horiz = TRUE)
+
+```
+
+
+# Generate pie charts
+
+```{r}
+# for(i in 1:dim(trials)[1]) {
+#   jpeg(file = paste(trials$image[i], '.jpg', sep = ''), res=600, width=2400, height=2400, pointsize=10)
+#   par(bg = 'black')
+#   pie(c(trials$restOfChart[i], trials$`exact value`[i]), labels = c(""), border = "white", col=c("black","white"), , init.angle=90)
+#   #image_crop(image, "100x150+50")
+#   dev.off()
+# }
+# 
+# print(i)
+```
+# Crop images
+
+```{r}
+# # select only jpg
+# all.files <- list.files()
+# my.files <- grep(".*jpg", all.files, value=T)
+# 
+# for(i in 1:length(my.files)) {
+#   image <- magick::image_read(my.files[i])
+#   image_cropped <- image_trim(image)
+#   image_write(image_cropped, path = my.files[i], format = "jpg")
+# }
+# 
+# print(i)
+```
+
