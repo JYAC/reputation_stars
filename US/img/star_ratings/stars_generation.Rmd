@@ -39,48 +39,42 @@ trials <- trials %>%
 
 # take out .jpeg from image column
 trials$image <- substr(trials$image,1,nchar(trials$image)-4)
+
+# Reshape data for barplot()
+exact_value <- trials %>% 
+  dplyr::select(`exact value`, restOfChart) 
+exact_value_t <- t(exact_value) #transpose so columns become rows
 ```
 
-# Generate bar plots
+# Generate bar charts
 
 ```{r}
-p <- ggplot(trials, aes(x = `exact value`, y = half))+
-  geom_col(width = 0.7)
-p
+for(i in 1:dim(trials)[1]) {
+  jpeg(file = paste(trials$image[i], '.jpg', sep = ''), res=600, width=2400, height=2400, pointsize=10)
+  par(bg = 'black')
+  barplot(as.matrix(exact_value_t[,i]), 
+        col=c("#ffe234","#222222"), 
+        border="#222222",
+        horiz=TRUE) 
+  dev.off()
+}
 
-
-
-barplot(trials$`exact value`[1],horiz = TRUE)
-
-```
-
-
-# Generate pie charts
-
-```{r}
-# for(i in 1:dim(trials)[1]) {
-#   jpeg(file = paste(trials$image[i], '.jpg', sep = ''), res=600, width=2400, height=2400, pointsize=10)
-#   par(bg = 'black')
-#   pie(c(trials$restOfChart[i], trials$`exact value`[i]), labels = c(""), border = "white", col=c("black","white"), , init.angle=90)
-#   #image_crop(image, "100x150+50")
-#   dev.off()
-# }
-# 
-# print(i)
+print(i)
 ```
 # Crop images
 
 ```{r}
-# # select only jpg
-# all.files <- list.files()
-# my.files <- grep(".*jpg", all.files, value=T)
-# 
-# for(i in 1:length(my.files)) {
-#   image <- magick::image_read(my.files[i])
-#   image_cropped <- image_trim(image)
-#   image_write(image_cropped, path = my.files[i], format = "jpg")
-# }
-# 
-# print(i)
+# select only jpg
+all.files <- list.files()
+my.files <- grep(".*jpg", all.files, value=T)
+
+for(i in 1:length(my.files)) {
+  image <- magick::image_read(my.files[i])
+  image_cropped <- image_trim(image)
+  image_cropped <- image_crop(image_cropped, "1776x433!")
+  image_write(image_cropped, path = my.files[i], format = "jpg")
+}
+
+print(i)
 ```
 

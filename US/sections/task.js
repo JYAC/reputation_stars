@@ -10,8 +10,8 @@ var pre_face_stimulus = prerep
 // n_trail should be 72
 var n_trial = 72;
 var n_trait_rating = Math.round(n_trial / 2);
-var face_duration = 4;
-var reputation_duration = 4;
+var face_duration = 1;
+var reputation_duration = 1;
 
 var race_choice = ['EA', 'AA'];
 var gender_choice = ['W', 'M'];
@@ -77,7 +77,7 @@ function showReputation(face){
     var reputation = {
         type: "html-keyboard-response",
         stimulus: "<img src=\'img/faces/"+face['image']+"\'>",
-        prompt: "<h2 style=\"text-align: center;\"><span style=\"color:black;\">.</span><img src=\'img/pie_charts/"+face['image']+"\' style=width:100px; ></h2><div style=\"height:305px; color:white;\"></div>",
+        prompt: "<h2 style=\"text-align: center;\"><span style=\"color:black;\">.</span><img src=\'img/star_ratings/"+face['image']+"\' style=width:300px; ><img src=\'img/star_ratings/starframe.png\' class = \"top\" style=width:332px; ></h2><div style=\"height:305px; color:white;\"></div>",
         choices: [],
         trial_duration: reputation_duration * 1000
     };
@@ -99,7 +99,7 @@ function showTrialQ(face){
     var q = {
         type: 'survey-multi-choice',
         button_label: button_str,
-        preamble: "<img src=\'img/faces/"+face['image']+"\'> <h2 style=\"text-align: center;\"><span style=\"color:black;\">.</span><img src=\'img/pie_charts/"+face['image']+"\' style=width:100px; ></h2><div style=\"height:20px; color:white;\"></div>",
+        preamble: "<img src=\'img/faces/"+face['image']+"\'> <h2 style=\"text-align: center;\"><span style=\"color:black;\">.</span><img src=\'img/star_ratings/"+face['image']+"\' style=width:300px; ><img src=\'img/star_ratings/starframe.png\' class = \"top\" style=width:332px; ></h2><div style=\"height:50px; color:white;\"></div>",
         questions: [{
             prompt: "<h2 style=\"text-align: center;\">How much money will you give to this player?</h2>",
             options: money_option,

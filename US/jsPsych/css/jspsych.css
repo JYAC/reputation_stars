@@ -103,6 +103,14 @@ input[type="text"] {
   cursor: not-allowed;
 }
 
+.top {
+  position: absolute;
+  left: 558px;
+  top: 390px;
+  border: 1px solid black;
+  z-index: 1;
+ }
+
 /* jsPsych progress bar */
 
 #jspsych-progressbar-container {
