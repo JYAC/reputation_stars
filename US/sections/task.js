@@ -10,8 +10,8 @@ var pre_face_stimulus = prerep
 // n_trail should be 72
 var n_trial = 72;
 var n_trait_rating = Math.round(n_trial / 2);
-var face_duration = 1;
-var reputation_duration = 1;
+var face_duration = 4;
+var reputation_duration = 4;
 
 var race_choice = ['EA', 'AA'];
 var gender_choice = ['W', 'M'];
